@@ -7,48 +7,42 @@ Feature: Project creation
 
   Scenario: User can create a project
 
-    Given header Authorization = "Bearer " + token
-    * def projectName = "Moj projekt"
+    Given def testData = { name: "Moj projekt" }
     * def payload = read("classpath:todoist/model/new_project.json")
-    * request payload
-    * path "/projects"
-    When method post
-    Then status 200
-    * match response.name == projectName
-    * def projectId = response.id
-
-    Given header Authorization = "Bearer " + token
-    * path "/projects", projectId
-    When method get
-    Then status 200
-    * match response.name == projectName
-
-    Given header Authorization = "Bearer " + token
-    * path "/projects"
-    When method get
-    Then status 200
-    * match response[*] contains deep { id: "#(projectId)", name: "#(projectName)" }
-
-  Scenario: User can create favorite project
-
-    Given def projectIsFavorite = true
-    * def projectName = "Moj ulubiony projekt"
-    * def payload = read("classpath:todoist/model/new_project.json")
-    * set payload.is_favorite = projectIsFavorite
     * header Authorization = "Bearer " + token
     * request payload
     * path "/projects"
     When method post
     Then status 200
-    * match response.name == projectName
-    * match response.is_favorite == projectIsFavorite
-    * def projectId = response.id
+    * match response contains testData
+    * def testData = response
 
     Given header Authorization = "Bearer " + token
-    * path "/projects", projectId
+    * path "/projects", testData.id
     When method get
     Then status 200
-    * match response.name == projectName
-    * match response.is_favorite == projectIsFavorite
+    * match response contains testData
 
+    Given header Authorization = "Bearer " + token
+    * path "/projects"
+    When method get
+    Then status 200
+    * match response[*] contains deep testData
 
+  Scenario: User can create favorite project
+
+    Given def testData = { name: "Moj ulubiony projekt", is_favorite: true }
+    * def payload = read("classpath:todoist/model/new_project.json")
+    * header Authorization = "Bearer " + token
+    * request payload
+    * path "/projects"
+    When method post
+    Then status 200
+    * match response contains testData
+    * def testData = response
+
+    Given header Authorization = "Bearer " + token
+    * path "/projects", testData.id
+    When method get
+    Then status 200
+    * match response contains testData

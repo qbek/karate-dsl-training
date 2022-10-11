@@ -1,3 +1,4 @@
 {
-  "name": "#(projectName)"
+  "name": "#(testData.name)",
+  "is_favorite": "##(testData.is_favorite)"
 }
