@@ -29,9 +29,9 @@ Feature: Project creation
     Then status 200
     * match response[*] contains deep testData
 
-  Scenario: User can create favorite project
-
-    Given def testData = { name: "Moj ulubiony projekt", is_favorite: true }
+  Scenario Outline: User can create custom project
+    
+    Given def testData = { name: "<name>", is_favorite: <favorite>, "view_style": "<style>" }
     * def payload = read("classpath:todoist/model/new_project.json")
     * header Authorization = "Bearer " + token
     * request payload
@@ -46,3 +46,8 @@ Feature: Project creation
     When method get
     Then status 200
     * match response contains testData
+
+    Examples:
+      | name                         | favorite | style | description                              |
+      | Moj ulubiony projekt         | true     | list  | User creates custom favorite project     |
+      | To nie jest ulubiony projekt | null    | board | User creates custom not favorite project |
