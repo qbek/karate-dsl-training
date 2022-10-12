@@ -7,45 +7,45 @@ Feature: Project creation
 
   Scenario: User can create a project
 
-    Given def testData = { name: "Moj projekt" }
+    Given def projectData = { name: "Moj projekt" }
     * def payload = read("classpath:todoist/model/new_project.json")
     * header Authorization = "Bearer " + token
     * request payload
     * path "/projects"
     When method post
     Then status 200
-    * match response contains testData
-    * def testData = response
+    * match response contains projectData
+    * def projectData = response
 
     Given header Authorization = "Bearer " + token
-    * path "/projects", testData.id
+    * path "/projects", projectData.id
     When method get
     Then status 200
-    * match response contains testData
+    * match response contains projectData
 
     Given header Authorization = "Bearer " + token
     * path "/projects"
     When method get
     Then status 200
-    * match response[*] contains deep testData
+    * match response[*] contains deep projectData
 
   Scenario Outline: User can create custom project
     
-    Given def testData = { name: "<name>", is_favorite: <favorite>, "view_style": "<style>" }
+    Given def projectData = { name: "<name>", is_favorite: <favorite>, "view_style": "<style>" }
     * def payload = read("classpath:todoist/model/new_project.json")
     * header Authorization = "Bearer " + token
     * request payload
     * path "/projects"
     When method post
     Then status 200
-    * match response contains testData
-    * def testData = response
+    * match response contains projectData
+    * def projectData = response
 
     Given header Authorization = "Bearer " + token
-    * path "/projects", testData.id
+    * path "/projects", projectData.id
     When method get
     Then status 200
-    * match response contains testData
+    * match response contains projectData
 
     Examples:
       | name                         | favorite | style | description                              |

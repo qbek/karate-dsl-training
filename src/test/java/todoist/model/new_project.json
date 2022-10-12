@@ -1,5 +1,5 @@
 {
-  "name": "#(testData.name)",
-  "is_favorite": "##(testData.is_favorite)",
-  "view_style": "##(testData.view_style)"
+  "name": "#(projectData.name)",
+  "is_favorite": "##(projectData.is_favorite)",
+  "view_style": "##(projectData.view_style)"
 }
