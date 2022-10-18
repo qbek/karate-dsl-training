@@ -1,4 +1,4 @@
-package examples.users;
+package todoist;
 
 import com.intuit.karate.junit5.Karate;
 
