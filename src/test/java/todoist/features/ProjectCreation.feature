@@ -34,7 +34,6 @@ Feature: Project creation
     Given header Authorization = "Bearer " +  token
     * def projectData = { name: "Ulubione szkolenie Karate", is_favorite: true }
     * def payload = read("classpath:todoist/model/new_project.json")
-    * set payload.is_favorite = projectData.is_favorite
     * request payload
     * path "/projects"
     When method post
