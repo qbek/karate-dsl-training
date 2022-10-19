@@ -6,26 +6,16 @@ Feature: Project creation
 
   Scenario: User can create a project
 
-    Given header Authorization = "Bearer " +  token
-    * def projectData = { name: "Jeszcze lepsze szkolenie Karate" }
-    * def payload = read("classpath:todoist/model/new_project.json")
-    * request payload
-    * path "/projects"
-    When method post
-    Then status 200
+
+    Given def projectData = { name: "Jeszcze lepsze szkolenie Karate" }
+    * call read("classpath:todoist/steps/create_new_project.feature") projectData
     * match response contains projectData
     * def projectData = response
 
-    Given header Authorization = "Bearer " + token
-    * path "/projects/", projectData.id
-    When method get
-    Then status 200
+    Given call read("classpath:todoist/steps/get_project_details.feature") projectData
     * match response contains projectData
 
-    Given header Authorization = "Bearer " + token
-    * path "/projects"
-    When method get
-    Then status 200
+    Given call read("classpath:todoist/steps/get_all_projects.feature")
     * match response[*] contains deep projectData
 
   Scenario Outline: User can create custom project
@@ -50,4 +40,3 @@ Feature: Project creation
       | name                 | favorite | view  | description                                |
       | Ulubiony projekt     | true     | board | this scenario creats favorite project      |
       | Nie ulubiony projekt | false    | list  | this scenario creates not favorite project |
-

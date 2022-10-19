@@ -1,0 +1,35 @@
+Feature: Task creation
+
+  Background:
+    Given url "https://api.todoist.com/rest/v2"
+    * def token = "d469ce54eca3a7ca5b6b5e7d4c8d51ced8d4c7b1"
+
+  Scenario: User can add task to the existing project
+
+    Given def preconditionProjectData = { name: "Reużywanie ficzerów" }
+    * def taskData = { content: "To jest moje pierwsze zadanie" }
+    * call read("classpath:todoist/steps/create_new_project.feature") preconditionProjectData
+    * set taskData.project_id = response.id
+
+    Given header Authorization = "Bearer " +  token
+    * def payload = read("classpath:todoist/model/new_task.json")
+    * request payload
+    * path "/tasks"
+    When method post
+    Then status 200
+    * match response contains taskData
+    * set taskData.id = response.id
+
+    Given header Authorization = "Bearer " + token
+    * path "/tasks", taskData.id
+    When method get
+    Then status 200
+    * match response contains taskData
+
+    Given header Authorization = "Bearer " + token
+    * path "/tasks"
+    When method get
+    Then status 200
+    * match response[*] contains deep taskData
+
+
