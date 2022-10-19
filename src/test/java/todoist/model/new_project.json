@@ -1,4 +1,5 @@
 {
   "name": "#(projectData.name)",
-  "is_favorite": "##(projectData.is_favorite)"
+  "is_favorite": "##(projectData.is_favorite)",
+  "view_style": "##(projectData.view_style)"
 }
