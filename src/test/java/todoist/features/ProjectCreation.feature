@@ -11,7 +11,7 @@ Feature: Project creation
     Given def projectData = { name: "Jeszcze lepsze szkolenie Karate" }
     When call step.project.create_new_project projectData
     Then match response contains projectData
-
+@ignore
   Scenario: User can get project details
     Given call project_exists { name: "projekt na pobranie detali" }
     * def projectData = response
@@ -24,6 +24,7 @@ Feature: Project creation
     When call get_all_projects
     Then match response[*] contains deep projectData
 
+    @ignore
   Scenario Outline: User can create custom project
 
     Given header Authorization = "Bearer " +  token

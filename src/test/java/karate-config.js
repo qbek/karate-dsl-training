@@ -4,6 +4,9 @@ function fn() {
   if (!env) {
     env = 'dev';
   }
+
+  var DataGenerator = Java.type("todoist.aux.DataGenerator")
+
   var config = {
     env: env,
     step: {
@@ -11,6 +14,7 @@ function fn() {
             create_new_project: read("classpath:todoist/steps/create_new_project.feature")
         }
     },
+    dg: DataGenerator,
     randomProjectName: function () {
        var DataGenerator = Java.type("todoist.aux.DataGenerator")
        return DataGenerator.randomProjectName()
