@@ -21,11 +21,11 @@ Feature: Iteration  waiting
 
   Scenario: Wait until STOP project exists
 
-    Given header Authorization = "Bearer " + token
-    * path "/projects/"
+    * configure retry = { count: 20, interval: 2000 }
+#    * retry until response.filter( function (project) { return project.name == "STOP" } ).length == 1
+    * retry until response.filter( project => project.name == "STOP" ).length == 1
+    When call get_all_projects
+    * print "odpalilem sie"
 
-    # czekaj za user doda projekt STOP
-    When method get
-    Then status 200
 
 
