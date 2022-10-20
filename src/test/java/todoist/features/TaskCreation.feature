@@ -5,8 +5,8 @@ Feature: Task creation
 
   Scenario: User can add task to the existing project
 
-    Given def preconditionProjectData = { name: "Reużywanie ficzerów" }
-    * def taskData = { content: "To jest moje pierwsze zadanie" }
+    Given def preconditionProjectData = { name: "#(randomProjectName())" }
+    * def taskData = { content: "#(randomTaskName())" }
     * call read("classpath:todoist/steps/create_new_project.feature") preconditionProjectData
     * set taskData.project_id = response.id
 
