@@ -6,13 +6,22 @@ function fn() {
   }
   var config = {
     env: env,
-    myVarName: 'someValue'
+    step: {
+        project: {
+            create_new_project: read("classpath:todoist/steps/create_new_project.feature")
+        },
+        task: {
+        }
+    }
   }
   if (env == 'dev') {
-    // customize
-    // e.g. config.foo = 'bar';
+    config.todoisturl = "https://api.todoist.com/rest/v2"
+    config.token = "d469ce54eca3a7ca5b6b5e7d4c8d51ced8d4c7b1"
   } else if (env == 'e2e') {
-    // customize
+    config.todoisturl = "https://todoist.pl"
+    config.token = "INVALID"
+  } else if (env == 'qa') {
+
   }
   return config;
 }
