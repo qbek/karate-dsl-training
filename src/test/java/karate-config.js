@@ -19,8 +19,16 @@ function fn() {
     config.token = "d469ce54eca3a7ca5b6b5e7d4c8d51ced8d4c7b1"
   } else if (env == 'e2e') {
     config.todoisturl = "https://totototo.pl"
+     config.token = "INVALID"
   } else if (env == 'qa') {
 
   }
+
+  karate.configure("headers", {
+    Authorization: "Bearer " + config.token,
+    customHeader: "jestem czyms"
+//    "X-Request-Id": config.javaRandomUUID()
+  })
+  karate.configure("ssl", true)
   return config;
 }
