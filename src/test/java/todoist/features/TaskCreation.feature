@@ -1,8 +1,7 @@
 Feature: Task creation
 
   Background:
-    Given url "https://api.todoist.com/rest/v2"
-    * def token = "d469ce54eca3a7ca5b6b5e7d4c8d51ced8d4c7b1"
+    Given url todoisturl
 
   Scenario: User can add task to the project
 

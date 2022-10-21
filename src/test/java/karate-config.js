@@ -15,10 +15,12 @@ function fn() {
     }
   }
   if (env == 'dev') {
-    // customize
-    // e.g. config.foo = 'bar';
+    config.todoisturl = "https://api.todoist.com/rest/v2"
+    config.token = "d469ce54eca3a7ca5b6b5e7d4c8d51ced8d4c7b1"
   } else if (env == 'e2e') {
-    // customize
+    config.todoisturl = "https://totototo.pl"
+  } else if (env == 'qa') {
+
   }
   return config;
 }
