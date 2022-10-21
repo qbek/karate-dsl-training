@@ -6,7 +6,13 @@ function fn() {
   }
   var config = {
     env: env,
-    myVarName: 'someValue'
+    javaRandomUUID: function () {
+      var UUID = Java.type("java.util.UUID")
+      return UUID.randomUUID()
+    },
+    step: {
+        create_new_project: read("classpath:todoist/steps/create_new_project.feature")
+    }
   }
   if (env == 'dev') {
     // customize
