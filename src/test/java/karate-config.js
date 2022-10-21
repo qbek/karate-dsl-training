@@ -4,8 +4,12 @@ function fn() {
   if (!env) {
     env = 'dev';
   }
+
+  var DataGenerator = Java.type("todoist.aux.DataGenerator")
+
   var config = {
     env: env,
+    generator: DataGenerator,
     javaRandomUUID: function () {
       var UUID = Java.type("java.util.UUID")
       return UUID.randomUUID()

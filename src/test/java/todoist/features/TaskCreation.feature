@@ -1,3 +1,4 @@
+@run
 Feature: Task creation
 
   Background:
@@ -5,9 +6,9 @@ Feature: Task creation
 
   Scenario: User can add task to the project
 
-    Given call step.create_new_project { name: "To jest lepszy projekt na zadanie" }
+    Given call step.create_new_project { name: "#(generator.randomProjectName())" }
 
-    Given def taskData  = { content: "Moje zadanie", project_id: "#(response.id)" }
+    Given def taskData  = { content: "#(generator.randomTaskName())", project_id: "#(response.id)" }
     * def payload = read("classpath:todoist/model/new_task.json")
     * header Authorization = "Bearer " + token
     * request payload

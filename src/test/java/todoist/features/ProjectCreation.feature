@@ -7,9 +7,10 @@ Feature: Project creation
     * def get_all_projects = read("classpath:todoist/steps/get_all_projects.feature")
 
 
+    @run
   Scenario: User can create a project
 
-    Given def projectData = { name: "Moj projekt" }
+    Given def projectData = { name: "#(generator.randomProjectName())" }
     When call step.create_new_project projectData
     Then match response contains projectData
 
